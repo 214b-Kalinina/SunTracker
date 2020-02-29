@@ -45,7 +45,6 @@ int main(int argc, char* argv[])
 		// Used to complete sending messages
 		std::cout << "Enter something to end: ";
 		std::cin >> test;
-		std::cin >> test;
 
 	}
 	
