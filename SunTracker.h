@@ -13,9 +13,9 @@ class SunTracker
 
 public:
 
-	SunTracker(Sun& _sun, Cloud& _cloud);
+	SunTracker(double cloud_width, double cloud_y, double cloud_speed, double cloud_x);
 
-	bool isDangerousAngle();
+	bool isDangerous();
 	void toModelMinute();
 
 };

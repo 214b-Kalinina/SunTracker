@@ -1,22 +1,11 @@
 #include "Sun.h"
 
-#include <corecrt_math_defines.h>
-
-
-Sun::Sun() {
-	this->radius = 0;
-	this->angle = 0;
-}
-
-
-
 //	radius - metre
 //	angle - radian
-Sun::Sun(double radius) {
-	this->radius = radius;
+
+Sun::Sun() {
 	this->angle = 0;
 }
-
 
 
 double Sun::getAngle() {
@@ -24,12 +13,7 @@ double Sun::getAngle() {
 }
 
 
-double Sun::getRadius() {
-	return this->radius;
-}
-
-
 // Sun goes 12 hours
 void Sun::toModelMinute() {
-	this->angle += M_PI / (12 * 60); // 180 angles (PI) per 12*60 minutes
+	this->angle += 3.14159 / (12 * 60); // 180 angles (PI) per 12*60 minutes
 }

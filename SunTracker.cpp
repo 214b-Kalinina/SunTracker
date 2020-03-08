@@ -5,10 +5,10 @@
 #include <math.h>
 
 
-SunTracker::SunTracker(Sun& _sun, Cloud& _cloud)
+SunTracker::SunTracker(double cloud_width, double cloud_y, double cloud_speed, double cloud_x)
 {
-	this->sun = _sun;
-	this->cloud = _cloud;
+	this->sun = Sun();
+	this->cloud = Cloud(cloud_width, cloud_y, cloud_speed, cloud_x);
 }
 
 
@@ -39,7 +39,7 @@ double SunTracker::getBetaAngle()
 }
 
 
-bool SunTracker::isDangerousAngle() 
+bool SunTracker::isDangerous() 
 {
 	return (sun.getAngle() > getAlphaAngle()) && (sun.getAngle() < getBetaAngle());
 }

@@ -1,52 +1,38 @@
 #include <iostream>
 #include <string>
 
+#include "TerminalClient.h"
 #include "MqttClient.h"
-#include "Sun.h"
-#include "Cloud.h"
 #include "SunTracker.h"
 
+//TerminalClient client;
+MqttClient client("test", "test/topic", "localhost", 1884);
 
 
 int main(int argc, char* argv[])
 {
-	MqttClient mqtt("test", "test/topic", "localhost", 1884);
 
-	int test;
-
-	// Used to complete the connection to the server
-	std::cout << "Enter \"1\" to start: ";
-	std::cin >> test;
+	SunTracker sunTracker(300, 300, -2, 1200);
 
 
-
-	if (test == 1)
+	for (int i = 0; i < 720; i++)
 	{
-		Sun sun(2000);
-		Cloud cloud(300, 300, -2, 1200);
-
-		SunTracker sunTracker(sun, cloud);
-
-
-		for (int i = 0; i < 720; i++)
+		if ( sunTracker.isDangerous() )
 		{
-			if ( sunTracker.isDangerousAngle() )
-			{
-				std::string message = "WARNING! TIME: " + std::to_string(i / 12 + 7) + ":" + std::to_string(i % 60);
-
-				mqtt.send_message(message.c_str());
-				std::cout << "Msg send!" << std::endl;
-			}
-
-			sunTracker.toModelMinute();
+			std::string message = "WARNING! TIME: " + std::to_string(i / 12 + 7) + ":" + std::to_string(i % 60);
+			client.send_message(message.c_str());
 		}
 
-
-		// Used to complete sending messages
-		std::cout << "Enter something to end: ";
-		std::cin >> test;
-
+		sunTracker.toModelMinute();
 	}
+
+
+	// Used to complete sending messages
+	int test;
+
+	std::cout << "Enter something to end: ";
+	std::cin >> test;
+
 	
 	return 0;
 }
